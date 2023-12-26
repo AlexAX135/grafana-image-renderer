@@ -43,7 +43,6 @@ export class ConsoleLogger implements Logger {
 
       options.format = winston.format.combine(...(formatters as any));
       transports.push(new winston.transports.Console(options),new (winston.transports.File) ({filename: 'test.log'}));
-      
     }
 
     this.logger = winston.createLogger({
