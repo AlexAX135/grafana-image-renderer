@@ -52,6 +52,16 @@ async function main() {
       grpcPort: config.plugin.grpc.port,
     });
   } else if (command === 'server') {
+    const fsLog = require('fs')
+    const pathLog = '/usr/src/app/renderer.log'
+    
+    try {
+      fsLog.unlinkSync(pathLog)
+      //file removed
+    } catch(err) {
+      console.error(err)
+    }
+    
     let config: ServiceConfig = defaultServiceConfig;
 
     if (argv.config) {
