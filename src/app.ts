@@ -55,13 +55,17 @@ async function main() {
     const fsLog = require('fs')
     const pathLog = '/usr/src/app/renderer.log'
     
-    try {
-      fsLog.unlinkSync(pathLog)
-      //file removed
-      this.log.info('File renderer.log has been removed')
-    } catch(err) {
-      console.error(err)
-    }
+    fsLog.unlink(pathLog, function(err) {
+      if(err && err.code == 'ENOENT') {
+          // file doens't exist
+          console.info("File doesn't exist, won't remove it.");
+      } else if (err) {
+          // other errors, e.g. maybe we don't have enough permission
+          console.error("Error occurred while trying to remove file");
+      } else {
+          console.info(`renderer.log removed`);
+      }
+    });
     
     let config: ServiceConfig = defaultServiceConfig;
 
