@@ -58,6 +58,7 @@ async function main() {
     try {
       fsLog.unlinkSync(pathLog)
       //file removed
+      this.log.info('File renderer.log has been removed')
     } catch(err) {
       console.error(err)
     }
